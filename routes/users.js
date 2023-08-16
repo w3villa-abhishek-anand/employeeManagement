@@ -14,7 +14,8 @@ router.post('/signup', async function(req, res, next) {
     const {
         name,
         email,
-        password
+        password,
+        isActive
     } = req.body  
     console.log(req.body);
     let bcryptPassword = await bcrypt.hash(password, 10);
@@ -23,6 +24,7 @@ router.post('/signup', async function(req, res, next) {
     await Employee.create({
         name,
         email,
+        isActive,
         password: bcryptPassword
     });
 
@@ -34,6 +36,7 @@ router.post('/signup', async function(req, res, next) {
 
 
 router.post('/login', async function(req, res, next) {
+  try {
     const {
         email,
         password
@@ -54,7 +57,16 @@ router.post('/login', async function(req, res, next) {
         })
       }
     });
-  });
+  }
+  catch(err) {
+    return res.status(500).json({
+      message: 'Internal server error',
+      success: false,
+      })
+  }
+});
+
+
 
 router.get('/employeeList', async function(req, res, next) {
   try {
