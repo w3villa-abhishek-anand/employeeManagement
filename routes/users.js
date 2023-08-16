@@ -27,6 +27,8 @@ router.post('/signup', async function(req, res, next) {
         name,
         email,
         isActive,
+        dateOfJoining,
+        profile,
         password: bcryptPassword
     });
 
