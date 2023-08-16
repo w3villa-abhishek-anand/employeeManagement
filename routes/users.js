@@ -70,7 +70,7 @@ router.post('/login', async function(req, res, next) {
 
 router.get('/employeeList', async function(req, res, next) {
   try {
-    const employee = await Employee.find();
+    const employee = await Employee.find({isActive: true});
     return res.status(200).json({
       data: employee,
       success: true,
